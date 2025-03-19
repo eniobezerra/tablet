@@ -125,7 +125,7 @@ function App() {
      
         
       >
-        Imprimir
+        Imprimir sempre
       </button>
     </div>
   );
