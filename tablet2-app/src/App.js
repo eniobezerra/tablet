@@ -50,7 +50,7 @@ function App() {
     const doc = new jsPDF();
     doc.setFont("helvetica", "normal");
     doc.setFontSize(16);
-    doc.text("Relatório de Itens Selecionados", 20, 20);
+    doc.text("Pedido nmero 01", 20, 20);
     doc.setFontSize(12);
 
     if (selecionados.length === 0) {
