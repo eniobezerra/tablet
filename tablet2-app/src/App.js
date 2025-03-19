@@ -1,6 +1,31 @@
 import React, { useState } from "react";
 import { jsPDF } from "jspdf";
 
+const conectarEImprimir = async () => {
+  try {
+    const dispositivo = await navigator.bluetooth.requestDevice({
+      acceptAllDevices: true,
+      optionalServices: ["printer_service_id"], // Substitua pelo ID do serviço da sua impressora
+    });
+
+    const servidor = await dispositivo.gatt.connect();
+    const servico = await servidor.getPrimaryService("printer_service_id");
+    const caracteristica = await servico.getCharacteristic("printer_characteristic_id");
+
+    const texto = "Relatório de Itens Selecionados\n";
+    const encoder = new TextEncoder();
+    const data = encoder.encode(texto);
+
+    await caracteristica.writeValue(data);
+    alert("Impressão realizada com sucesso!");
+  } catch (error) {
+    console.error("Erro ao imprimir:", error);
+    alert("Erro ao imprimir. Verifique a conexão com a impressora.");
+  }
+  //_______________
+};
+
+
 function App() {
   const [selecionados, setSelecionados] = useState([]);
 
@@ -82,22 +107,30 @@ function App() {
         Gerar PDF
       </button>
       <button
-        onClick={imprimir}
-        style={{
-          marginTop: "10px",
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          backgroundColor: "#007BFF",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-        }}
+       
+       onClick={conectarEImprimir}
+       style={{
+         marginTop: "10px",
+         padding: "10px 20px",
+         fontSize: "16px",
+         cursor: "pointer",
+         backgroundColor: "#007BFF",
+         color: "white",
+         border: "none",
+         borderRadius: "4px",
+       }}
+     
+       Imprimir via Bluetooth
+     
+     
+        
       >
         Imprimir
       </button>
     </div>
   );
+
+  
 }
 
 export default App;
