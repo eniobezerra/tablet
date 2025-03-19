@@ -4,7 +4,7 @@ import { jsPDF } from "jspdf";
 function App() {
   const [selecionados, setSelecionados] = useState([]);
 
-  const itens = ["Açaí", "Banana", "Manga","Leite","Aveai"];
+  const itens = ["Açaí", "Banana", "Manga", "Leite", "Aveia"]; // Corrigido "Aveai" para "Aveia"
 
   const handleItemClick = (item) => {
     if (!selecionados.includes(item)) {
@@ -28,6 +28,11 @@ function App() {
     }
 
     doc.save("relatorio.pdf");
+  };
+
+  const imprimir = () => {
+    alert("A funcionalidade de impressão via Bluetooth está em desenvolvimento.");
+    // Adicione a lógica de impressão Bluetooth aqui no futuro
   };
 
   return (
@@ -75,6 +80,21 @@ function App() {
         }}
       >
         Gerar PDF
+      </button>
+      <button
+        onClick={imprimir}
+        style={{
+          marginTop: "10px",
+          padding: "10px 20px",
+          fontSize: "16px",
+          cursor: "pointer",
+          backgroundColor: "#007BFF",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+        }}
+      >
+        Imprimir
       </button>
     </div>
   );
